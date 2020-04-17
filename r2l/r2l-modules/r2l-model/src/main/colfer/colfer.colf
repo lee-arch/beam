@@ -1,0 +1,35 @@
+package colf
+
+type OutboxCommand struct {
+	transactionId			text
+	maxEventId				text
+	maxSerialNo				uint32
+}
+
+type OutboxEvent struct {
+	eventId					text
+	transactionId			text
+	serialNo				uint32
+	eventTarget				text
+	action					uint8
+}
+
+type OutboxRecord struct {
+	eventId					text
+	record					binary
+}
+
+type OutboxData struct {
+	command					OutboxCommand
+	event					OutboxEvent
+	record					OutboxRecord
+}
+
+type TxnCacheKey struct {
+	transactionId			text
+	serialNo				uint32
+}
+type TxnCacheValue struct {
+	event					OutboxEvent
+	record					OutboxRecord
+}
